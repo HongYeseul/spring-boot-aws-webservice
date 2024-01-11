@@ -32,13 +32,19 @@ public class Posts {
         this.content = content;
         this.author = author;
     }
+
     /**
      * 빌더 패턴 이용시
      * 생성자를 사용한 new Example(a, b)를 사용하기 보다
      * Example.builder()
-     *      .a(a)
-     *      .b(b)
-     *      .build();
+     * .a(a)
+     * .b(b)
+     * .build();
      * 로 사용 가능하여 어느 필드에 어떤 값을 채워야 할지 명확하게 인지할 수 있다.
      */
+
+    public void update(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
 }
