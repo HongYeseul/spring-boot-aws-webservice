@@ -5,6 +5,7 @@ import com.book.springboot.web.dto.PostsResponseDto;
 import com.book.springboot.web.dto.PostsSaveRequestDto;
 import com.book.springboot.web.dto.PostsUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * Spring에서 Bean을 주입 받는 방식에는 @Autowired, setter, 생성자를 사용하는 방식의 총 3가지가 있다.
  * 이 중 가장 권장하는 방식이 생성자로 주입받는 방식이다.
+ *
  * @RequiredArgsConstructor 의 경우 자동으로 생성자를 생성해주기 때문에 간단하게 해결할 수 있다.
  */
 @RequiredArgsConstructor
@@ -35,5 +37,11 @@ public class PostsApiController {
     @GetMapping("/api/v1/posts/{id}")
     public PostsResponseDto findById(@PathVariable Long id) {
         return postsService.findById(id);
+    }
+
+    @DeleteMapping("/api/v1/posts/{id}")
+    public Long delete(@PathVariable Long id) {
+        postsService.delete(id);
+        return id;
     }
 }
