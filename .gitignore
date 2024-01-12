@@ -39,4 +39,5 @@ bin/
 .DS_Store
 
 ### Google OAuth2 ###
+application-oauth.properties
 /src/main/resources/application-oauth.properties
