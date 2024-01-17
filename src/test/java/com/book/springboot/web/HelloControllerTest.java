@@ -1,9 +1,13 @@
 package com.book.springboot.web;
 
+import com.book.springboot.config.auth.SecurityConfig;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.FilterType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -14,7 +18,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(SpringExtension.class) // 스프링 부트 테스트와 JUnit 사이의 연결자 역할
-@WebMvcTest(controllers = HelloController.class) // 스프링 테스트 어노테이션 중 Web(Spring MVC)에 집중할 수 있는 어노테이션
+@WebMvcTest(controllers = HelloController.class, excludeFilters = {
+        @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = SecurityConfig.class)
+}) // 스프링 테스트 어노테이션 중 Web(Spring MVC)에 집중할 수 있는 어노테이션
+// WebMvcTest 는 CustomOAuth2UserService를 스캔하지 않으므로 스프링 시큐리티 설정을 읽지 않는다.
+@WithMockUser(roles = "USER")
 public class HelloControllerTest {
 
     @Autowired // 스프링이 관리하는 Bean 주입 받기
